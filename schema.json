@@ -1,0 +1,74 @@
+{
+  "title": "JFrog Applications Configuration schema",
+  "description": "The configuration file allows you to refine your scan behavior according to your specific project needs and structures, leading to better and more accurate scan results.",
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["version", "applications"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "applications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "source_root": {
+            "type": "string",
+            "default": "."
+          },
+          "exclude_patterns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "exclude_scanners": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["secrets", "sast", "iac"]
+            }
+          },
+          "scanners": {
+            "type": "object",
+            "properties": {
+              "sast": {
+                "type": "object",
+                "properties": {
+                  "language": {
+                    "type": "string"
+                  },
+                  "working_dirs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "exclude_patterns": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "excluded_rules": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
